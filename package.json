@@ -1,0 +1,13 @@
+﻿{
+  "name": "aqala-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "test:ui": "playwright test",
+    "test:ui:update": "playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0"
+  }
+}
+

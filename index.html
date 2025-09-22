@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفرسان - منصة الأبحاث الفكرية</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light home-page" data-api-base="/api">
+    <div class="page-wrapper">
+        <header class="top-bar">
+            <div class="logo-area">
+                <img src="assets/images/logo.svg" alt="شعار الفرسان" class="logo">
+                <span class="site-title">الفرسان</span>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-item" data-category="series">
+                    <a href="series.html">السلاسل</a>
+                    <div class="nav-dropdown" id="dropdown-series">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="doubts">
+                    <a href="#articles" data-filter="doubts">دفع الشبهات</a>
+                    <div class="nav-dropdown" id="dropdown-doubts">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="prophethood">
+                    <a href="#articles" data-filter="prophethood">إثبات النبوة</a>
+                    <div class="nav-dropdown" id="dropdown-prophethood">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="logic">
+                    <a href="#articles" data-filter="logic">المنطق</a>
+                    <div class="nav-dropdown" id="dropdown-logic">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="theology">
+                    <a href="#articles" data-filter="theology">بحوث عقدية</a>
+                    <div class="nav-dropdown" id="dropdown-theology">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="philosophy">
+                    <a href="#articles" data-filter="philosophy">قضايا فلسفية</a>
+                    <div class="nav-dropdown" id="dropdown-philosophy">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="misc">
+                    <a href="#articles" data-filter="misc">أقسام متنوعة</a>
+                    <div class="nav-dropdown" id="dropdown-misc">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+            </nav>
+            <div class="actions">
+                <button class="theme-toggle" aria-label="تبديل السمة" id="themeToggle">
+                    <span class="icon-sun"></span>
+                    <span class="icon-moon"></span>
+                </button>
+                <a class="auth-btn" href="login.html">دخول / تسجيل</a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="hero" id="hero">
+                <div class="hero-content">
+                    <div class="hero-main">
+                        <div class="hero-badge">✨ أحدث المقالات</div>
+                        <div class="hero-article-featured" id="heroArticle">
+                            <div class="loading-placeholder">جارٍ تحميل آخر المقالات...</div>
+                        </div>
+                    </div>
+                    <div class="hero-sidebar">
+                        <div class="hero-welcome">
+                            <h2>مرحباً بك في <h3>الفرسان</h3>
+                            <p>منصة عربية متخصصة في الأبحاث الفكرية والعقلية</p>
+                            <button class="newsletter-mini-btn" data-popup-target="newsletterPopup" title="اشترك في النشرة">📧</button>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" id="articlesCount">0</span>
+                                <span class="stat-label">مقالة</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">5</span>
+                                <span class="stat-label">تصنيفات</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">1</span>
+                                <span class="stat-label">كاتب</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="filter-bar" aria-label="اختيار التصنيفات">
+                <div class="filter-group">
+                    <label for="searchInput">البحث</label>
+                    <input type="text" id="searchInput" class="filter-control" placeholder="ابحث في المقالات...">
+                </div>
+                <div class="filter-group">
+                    <label for="categoryFilter">التصنيف</label>
+                    <select id="categoryFilter" class="filter-control">
+                        <option value="all" selected>الكل</option>
+                        <option value="series">السلاسل</option>
+                        <option value="doubts">دفع الشبهات</option>
+                        <option value="prophethood">إثبات النبوة</option>
+                        <option value="logic">المنطق</option>
+                        <option value="theology">بحوث عقدية</option>
+                        <option value="philosophy">قضايا فلسفية</option>
+                        <option value="misc">أقسام متنوعة</option>
+                    </select>
+                </div>
+                <div class="filter-group tags">
+                    <span>الوسوم:</span>
+                    <button class="tag" data-tag="الابستمولوجيا">#الابستمولوجيا</button>
+                    <button class="tag" data-tag="القرآن">#القرآن</button>
+                    <button class="tag" data-tag="العدالة">#العدالة</button>
+                    <button class="tag" data-tag="المنطق">#المنطق</button>
+                    <button class="tag" data-tag="الفلسفة">#الفلسفة</button>
+                    <button class="tag" data-tag="السنة">#السنة</button>
+                </div>
+            </section>
+
+            <section class="series-section" aria-label="أحدث السلاسل" id="series">
+                <div class="section-header">
+                    <h2>أحدث السلاسل</h2>
+                    <a href="series.html" class="view-all">عرض الكل</a>
+                </div>
+                <div class="series-grid" id="seriesGrid">
+                    <div class="loading-placeholder">جاري تحميل أحدث السلاسل...</div>
+                </div>
+            </section>
+
+            <div class="content-grid">
+                <section class="articles" aria-label="قائمة المقالات" id="articles">
+                    <header class="section-header">
+                        <h2>المقالات المختارة</h2>
+                        <span class="results-count">–</span>
+                    </header>
+                    <div class="article-grid" id="articleGrid">
+                        <!-- سيتم تحميل المقالات ديناميكياً -->
+                    </div>
+                </section>
+
+                <aside class="sidebar" aria-label="محتوى جانبي">
+                    <section class="sidebar-section">
+                        <h3 id="trending">الأكثر تداولاً</h3>
+                        <ul class="mini-list" id="trendingList"></ul>
+                    </section>
+
+                    <section class="sidebar-section">
+                        <h3 id="recommended">موصى به لك</h3>
+                        <ul class="mini-list" id="recommendedList"></ul>
+                    </section>
+
+                    <section class="sidebar-section tag-cloud">
+                        <h3>سحابة الوسوم</h3>
+                        <div class="tags-cloud">
+                            <a href="#articles" class="tag-badge" data-tag="العقيدة">العقيدة</a>
+                            <a href="#articles" class="tag-badge" data-tag="الفلسفة">الفلسفة</a>
+                            <a href="#articles" class="tag-badge" data-tag="المنهجية">المنهجية</a>
+                            <a href="#articles" class="tag-badge" data-tag="القراءة">القراءة</a>
+                            <a href="#articles" class="tag-badge" data-tag="الحوار">الحوار</a>
+                            <a href="#articles" class="tag-badge" data-tag="الشباب">الشباب</a>
+                            <a href="#articles" class="tag-badge" data-tag="العلم">العلم</a>
+                        </div>
+                    </section>
+
+                    <section class="sidebar-section poll" aria-live="polite">
+                        <h3>استطلاع الرأي</h3>
+                        <p>أي سمة تفضل لعرض المقالات؟</p>
+                        <form id="pollForm" data-endpoint="/polls/vote" data-method="POST" data-success="✓ شكراً لمشاركتك" data-loading="جارٍ التصويت..." data-reset-on-success="false">
+                            <input type="hidden" name="pollId" value="homepage-theme">
+                            <label class="poll-option">
+                                <input type="radio" name="theme" value="light" checked>
+                                <span>سمة مضيئة</span>
+                            </label>
+                            <label class="poll-option">
+                                <input type="radio" name="theme" value="dark">
+                                <span>سمة داكنة</span>
+                            </label>
+                            <label class="poll-option">
+                                <input type="radio" name="theme" value="sepia">
+                                <span>سمة دافئة</span>
+                            </label>
+                            <button type="submit" class="vote-btn" data-loading="جارٍ التصويت...">صوّت الآن</button>
+                            <p class="form-status" hidden></p>
+                        </form>
+                        <div class="poll-results" id="pollResults" hidden>
+                            <p class="poll-total" data-role="total-votes"></p>
+                            <div class="result-bar" data-value="light">
+                                <span>سمة مضيئة</span>
+                                <div class="bar"><span></span></div>
+                                <strong class="percent">0%</strong>
+                            </div>
+                            <div class="result-bar" data-value="dark">
+                                <span>سمة داكنة</span>
+                                <div class="bar"><span></span></div>
+                                <strong class="percent">0%</strong>
+                            </div>
+                            <div class="result-bar" data-value="sepia">
+                                <span>سمة دافئة</span>
+                                <div class="bar"><span></span></div>
+                                <strong class="percent">0%</strong>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </main>
+
+        <footer class="site-footer" id="footer">
+            <div class="footer-columns">
+                <section>
+                    <h4>رسالتنا</h4>
+                    <p>الفرسان منصة فكرية عربية تقدّم محتوى أصيلاً يربط بين منجز العقل الإسلامي والعلوم الإنسانية الحديثة، لتثبيت اليقين وتعزيز الحوار الرشيد.</p>
+                </section>
+                <section>
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="article.html?slug=rational-discourse">أحدث المقالات</a></li>
+                        <li><a href="series.html">السلاسل البحثية</a></li>
+                        <li><a href="#trending">المقالات الرائجة</a></li>
+                        <li><a href="#recommended">اختيارات المحررين</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h4>تواصل معنا</h4>
+                    <ul class="social-links">
+                        <li><a href="#" aria-label="تويتر">تويتر</a></li>
+                        <li><a href="#" aria-label="يوتيوب">يوتيوب</a></li>
+                        <li><a href="#" aria-label="تلغرام">تلغرام</a></li>
+                        <li><a href="#" aria-label="بودكاست">بودكاست</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h4>الجوانب القانونية</h4>
+                    <ul>
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                        <li><a href="#">شروط الاستخدام</a></li>
+                        <li><a href="#">سياسة ملفات الارتباط</a></li>
+                    </ul>
+                </section>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 الفرسان. جميع الحقوق محفوظة.</p>
+                <div class="cookie-notice">
+                    <span>نستخدم ملفات الارتباط لتحسين التجربة.</span>
+                    <button class="accept-cookies" id="acceptCookies">موافق</button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="popup" id="authPopup" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>مرحباً بك</h3>
+            <p>سجّل دخولك بحساب الإدارة للوصول إلى لوحة التحكم.</p>
+            <form class="auth-form" data-endpoint="/auth/login" data-method="POST" data-success="✓ تم تسجيل الدخول" data-loading="جارٍ تسجيل الدخول..." data-reset-on-success="false" data-close-on-success="true">
+                <label>
+                    البريد الإلكتروني
+                    <input type="email" name="email" autocomplete="email" required>
+                </label>
+                <label>
+                    كلمة المرور
+                    <input type="password" name="password" autocomplete="current-password" required>
+                </label>
+                <button type="submit" data-loading="جارٍ تسجيل الدخول...">دخول</button>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup" id="newsletterPopup" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>اشترك في النشرة</h3>
+            <p>يصلك كل أسبوع أبرز المقالات والقراءات المختارة.</p>
+            <form class="newsletter-form" data-endpoint="/newsletter/subscribe" data-method="POST" data-success="✓ تم الاشتراك" data-loading="جارٍ الاشتراك..." data-close-on-success="true">
+                <label>
+                    البريد الإلكتروني
+                    <input type="email" name="email" autocomplete="email" required>
+                </label>
+                <button type="submit" data-loading="جارٍ الاشتراك...">اشترك الآن</button>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/backend.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
+
+
+

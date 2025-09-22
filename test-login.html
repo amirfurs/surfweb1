@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تسجيل الدخول - الفرسان</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="theme-light">
+    <div style="padding: 2rem; max-width: 600px; margin: 0 auto;">
+        <h1>اختبار نظام تسجيل الدخول</h1>
+        
+        <div style="margin-bottom: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+            <h3>إنشاء مستخدم افتراضي</h3>
+            <p>إذا لم يكن لديك حساب، اضغط هنا لإنشاء مستخدم افتراضي:</p>
+            <button id="createUserBtn" class="primary">إنشاء مستخدم افتراضي</button>
+            <div id="userResult" style="margin-top: 1rem;"></div>
+        </div>
+        
+        <div style="margin-bottom: 2rem; padding: 1rem; background: #e8f5e8; border-radius: 8px;">
+            <h3>بيانات الدخول الافتراضية</h3>
+            <p><strong>البريد الإلكتروني:</strong> admin@example.com</p>
+            <p><strong>كلمة المرور:</strong> admin123</p>
+            <a href="login.html" class="primary" style="display: inline-block; margin-top: 0.5rem;">انتقل لصفحة تسجيل الدخول</a>
+        </div>
+        
+        <div style="margin-bottom: 2rem; padding: 1rem; background: #fff3cd; border-radius: 8px;">
+            <h3>اختبار سريع للدخول</h3>
+            <form id="quickLoginForm">
+                <label>
+                    البريد الإلكتروني
+                    <input type="email" name="email" value="admin@example.com" required>
+                </label>
+                <label>
+                    كلمة المرور
+                    <input type="password" name="password" value="admin123" required>
+                </label>
+                <button type="submit" class="primary">تسجيل دخول سريع</button>
+            </form>
+            <div id="loginResult" style="margin-top: 1rem;"></div>
+        </div>
+        
+        <div style="padding: 1rem; background: #d1ecf1; border-radius: 8px;">
+            <h3>حالة تسجيل الدخول الحالية</h3>
+            <button id="checkStatusBtn" class="secondary">فحص حالة الدخول</button>
+            <div id="statusResult" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Create default user
+        document.getElementById('createUserBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('createUserBtn');
+            const result = document.getElementById('userResult');
+            
+            btn.disabled = true;
+            btn.textContent = 'جارٍ الإنشاء...';
+            
+            try {
+                const response = await fetch('/admin/create-default-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.innerHTML = `<div style="color: green; font-weight: bold;">${data.message}</div>`;
+                } else {
+                    result.innerHTML = `<div style="color: orange;">${data.error}</div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div style="color: red;">خطأ: ${error.message}</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'إنشاء مستخدم افتراضي';
+            }
+        });
+
+        // Quick login test
+        document.getElementById('quickLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const result = document.getElementById('loginResult');
+            
+            try {
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: formData.get('email'),
+                        password: formData.get('password')
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.innerHTML = `<div style="color: green; font-weight: bold;">✓ ${data.message}</div>`;
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 1500);
+                } else {
+                    result.innerHTML = `<div style="color: red;">✗ ${data.error}</div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div style="color: red;">خطأ: ${error.message}</div>`;
+            }
+        });
+
+        // Check login status
+        document.getElementById('checkStatusBtn').addEventListener('click', async () => {
+            const result = document.getElementById('statusResult');
+            
+            try {
+                const response = await fetch('/auth/status');
+                const data = await response.json();
+                
+                if (data.authenticated) {
+                    result.innerHTML = `
+                        <div style="color: green;">
+                            <strong>مسجل دخول:</strong> ${data.user.full_name} (${data.user.email})<br>
+                            <strong>الدور:</strong> ${data.user.role}
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `<div style="color: orange;">غير مسجل دخول</div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div style="color: red;">خطأ: ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug 2 - الفرسان</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="theme-light home-page">
+    <h1>Debug Page 2 - Testing renderHomePage</h1>
+    
+    <div id="debug-output"></div>
+    
+    <section class="articles" id="articles">
+        <header class="section-header">
+            <h2>المقالات المختارة</h2>
+            <span class="results-count">–</span>
+        </header>
+        <div class="article-grid" id="articleGrid">
+            <!-- سيتم تحميل المقالات ديناميكياً -->
+        </div>
+    </section>
+    
+    <script src="assets/js/backend.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+        // Debug script to test renderHomePage functionality
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                const debugOutput = document.getElementById('debug-output');
+                let output = '<h2>Debug Information:</h2>';
+                
+                // Check if mockBackend exists
+                if (window.mockBackend) {
+                    output += '<p>✅ mockBackend exists</p>';
+                    
+                    // Get posts
+                    const posts = window.mockBackend.getPosts({});
+                    output += `<p>✅ Posts count: ${posts.length}</p>`;
+                    
+                    // Check body class
+                    const hasHomePageClass = document.body.classList.contains('home-page');
+                    output += `<p>Body has home-page class: ${hasHomePageClass ? '✅' : '❌'}</p>`;
+                    
+                    // Check if articleGrid exists
+                    const articleGrid = document.getElementById('articleGrid');
+                    output += `<p>Article grid exists: ${articleGrid ? '✅' : '❌'}</p>`;
+                    
+                    if (articleGrid) {
+                        output += `<p>Article grid HTML length before render: ${articleGrid.innerHTML.length}</p>`;
+                        
+                        // Try to manually call renderHomePage
+                        if (typeof renderHomePage === 'function') {
+                            output += '<p>✅ renderHomePage function exists</p>';
+                            
+                            try {
+                                renderHomePage();
+                                output += '<p>✅ renderHomePage called successfully</p>';
+                                output += `<p>Article grid HTML length after render: ${articleGrid.innerHTML.length}</p>`;
+                                
+                                // Count article cards
+                                const articleCards = document.querySelectorAll('.article-card');
+                                output += `<p>Number of article cards: ${articleCards.length}</p>`;
+                                
+                            } catch (error) {
+                                output += `<p>❌ Error calling renderHomePage: ${error.message}</p>`;
+                            }
+                        } else {
+                            output += '<p>❌ renderHomePage function does not exist</p>';
+                        }
+                    }
+                } else {
+                    output += '<p>❌ mockBackend does not exist</p>';
+                }
+                
+                debugOutput.innerHTML = output;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

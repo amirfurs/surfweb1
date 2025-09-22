@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السلاسل - الفرسان</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light series-page" data-api-base="/api">
+    <div class="page-wrapper">
+        <header class="top-bar">
+            <div class="logo-area">
+                <img src="assets/images/logo.svg" alt="شعار الفرسان" class="logo">
+                <span class="site-title">الفرسان</span>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-item" data-category="series">
+                    <a href="series.html" class="active">السلاسل</a>
+                    <div class="nav-dropdown" id="dropdown-series">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="doubts">
+                    <a href="index.html#articles" data-filter="doubts">دفع الشبهات</a>
+                    <div class="nav-dropdown" id="dropdown-doubts">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="prophethood">
+                    <a href="index.html#articles" data-filter="prophethood">إثبات النبوة</a>
+                    <div class="nav-dropdown" id="dropdown-prophethood">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="logic">
+                    <a href="index.html#articles" data-filter="logic">المنطق</a>
+                    <div class="nav-dropdown" id="dropdown-logic">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="theology">
+                    <a href="index.html#articles" data-filter="theology">بحوث عقدية</a>
+                    <div class="nav-dropdown" id="dropdown-theology">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="philosophy">
+                    <a href="index.html#articles" data-filter="philosophy">قضايا فلسفية</a>
+                    <div class="nav-dropdown" id="dropdown-philosophy">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+                <div class="nav-item" data-category="misc">
+                    <a href="index.html#articles" data-filter="misc">أقسام متنوعة</a>
+                    <div class="nav-dropdown" id="dropdown-misc">
+                        <div class="dropdown-loading">جارٍ التحميل...</div>
+                    </div>
+                </div>
+            </nav>
+            <div class="actions">
+                <button class="theme-toggle" aria-label="تبديل السمة" id="themeToggle">
+                    <span class="icon-sun"></span>
+                    <span class="icon-moon"></span>
+                </button>
+                <a class="auth-btn" href="login.html">دخول / تسجيل</a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="series-hero">
+                <div class="series-hero-content">
+                    <h1>السلاسل العلمية</h1>
+                    <p>مجموعة من السلاسل المتخصصة في العلوم الشرعية والفكرية، مقدمة بطريقة منهجية ومتدرجة لتحقيق أقصى استفادة علمية.</p>
+                    <div class="series-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="seriesCount">0</span>
+                            <span class="stat-label">سلسلة</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="episodesCount">0</span>
+                            <span class="stat-label">حلقة</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">مجالات</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="series-grid-section">
+                <div class="section-header">
+                    <h2>جميع السلاسل</h2>
+                    <div class="series-filters">
+                        <select id="statusFilter" class="filter-control">
+                            <option value="all">جميع الحالات</option>
+                            <option value="active">نشطة</option>
+                            <option value="completed">مكتملة</option>
+                            <option value="paused">متوقفة مؤقتاً</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="series-grid" id="seriesGrid">
+                    <div class="loading-placeholder">جارٍ تحميل السلاسل...</div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer" id="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>الفرسان</h3>
+                    <p>منصة عربية متخصصة في الأبحاث الفكرية والعقلية، تهدف إلى نشر المعرفة وتعزيز الفكر النقدي.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="series.html">السلاسل</a></li>
+                        <li><a href="index.html#articles">المقالات</a></li>
+                        <li><a href="admin.html">لوحة التحكم</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معنا</h4>
+                    <ul>
+                        <li><a href="mailto:info@aqalaa.com">info@aqalaa.com</a></li>
+                        <li><a href="#" data-popup-target="newsletterPopup">النشرة البريدية</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 الفرسان. جميع الحقوق محفوظة.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Newsletter Popup -->
+    <div class="popup" id="newsletterPopup" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>اشترك في النشرة البريدية</h3>
+            <p>احصل على آخر المقالات والسلاسل مباشرة في بريدك الإلكتروني.</p>
+            <form class="newsletter-form" data-endpoint="/newsletter/subscribe" data-method="POST" data-success="✓ تم الاشتراك بنجاح" data-loading="جارٍ الاشتراك...">
+                <label>
+                    البريد الإلكتروني
+                    <input type="email" name="email" placeholder="name@example.com" required>
+                </label>
+                <button type="submit" data-loading="جارٍ الاشتراك...">اشتراك</button>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/backend.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - الفرسان</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light auth-page login-page">
+    <div class="auth-wrapper">
+        <aside class="auth-brand">
+            <a href="index.html" class="auth-logo">
+                <img src="assets/images/logo.svg" alt="شعار الفرسان">
+                <span>الفرسان</span>
+            </a>
+            <h1>مرحباً بعودتك</h1>
+            <p>سجّل دخولك للوصول إلى المقالات المحفوظة ولوحة التحكم إذا كنت ضمن فريق التحرير.</p>
+            <div class="auth-highlights">
+                <div>
+                    <strong>+280</strong>
+                    <span>مقالاً معرفياً</span>
+                </div>
+                <div>
+                    <strong>+60</strong>
+                    <span>سلسلة بحثية</span>
+                </div>
+                <div>
+                    <strong>مجتمع</strong>
+                    <span>من المفكرين والباحثين</span>
+                </div>
+            </div>
+        </aside>
+        <main class="auth-card" role="main">
+            <h2>تسجيل الدخول لحسابك</h2>
+            <form class="auth-form" data-endpoint="/auth/login" data-method="POST" data-success="✓ تم تسجيل الدخول" data-loading="جارٍ التحقق..." data-reset-on-success="false" data-close-on-success="false">
+                <label>
+                    البريد الإلكتروني
+                    <input type="email" name="email" autocomplete="email" placeholder="name@example.com" required>
+                </label>
+                <label>
+                    كلمة المرور
+                    <input type="password" name="password" autocomplete="current-password" placeholder="••••••••" required>
+                </label>
+                <div class="auth-options">
+                    <label class="remember">
+                        <input type="checkbox" name="remember">
+                        تذكرني لاحقاً
+                    </label>
+                    <a href="#" class="muted-link" data-popup-target="forgotPasswordPopup">نسيت كلمة المرور؟</a>
+                </div>
+                <button type="submit" class="primary" data-loading="جارٍ تسجيل الدخول...">دخول</button>
+                <p class="form-status" hidden></p>
+            </form>
+            <footer class="auth-footer">
+                <p>ليس لديك حساب؟ <a href="signup.html">إنشاء حساب جديد</a></p>
+                <a href="index.html" class="muted-link">العودة إلى الصفحة الرئيسية</a>
+            </footer>
+        </main>
+    </div>
+
+    <div class="popup" id="forgotPasswordPopup" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>إعادة ضبط كلمة المرور</h3>
+            <p>سنرسل لك تعليمات إعادة التعيين فوراً.</p>
+            <form class="auth-form" data-endpoint="/newsletter/subscribe" data-method="POST" data-success="✓ تم الإرسال" data-loading="جارٍ الإرسال...">
+                <label>
+                    البريد الإلكتروني
+                    <input type="email" name="email" required>
+                </label>
+                <button type="submit" data-loading="جارٍ الإرسال...">إرسال التعليمات</button>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/backend.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
+

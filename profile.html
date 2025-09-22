@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات الشخصية - منصة عقلاء</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light profile-page">
+    <div class="page-wrapper">
+        <header class="top-bar">
+            <div class="logo-area">
+                <img src="assets/images/logo.svg" alt="شعار عقلاء" class="logo">
+                <span class="site-title">عقلاء</span>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html#series">السلاسل</a>
+                <a href="index.html#articles" data-filter="doubts">دفع الشبهات</a>
+                <a href="index.html#articles" data-filter="prophethood">دلائل النبوة</a>
+                <a href="index.html#articles" data-filter="logic">المنطق</a>
+                <a href="index.html#articles" data-filter="theology">العقيدة</a>
+                <a href="index.html#articles" data-filter="philosophy">الفلسفة</a>
+                <a href="index.html#articles" data-filter="misc">متنوع</a>
+            </nav>
+            <div class="actions">
+                <button class="theme-toggle" aria-label="تبديل السمة" id="themeToggle">
+                    <span class="icon-sun"></span>
+                    <span class="icon-moon"></span>
+                </button>
+                <a class="auth-btn" href="login.html">دخول / تسجيل</a>
+            </div>
+        </header>
+
+        <main class="profile-layout" role="main">
+            <section class="profile-hero card">
+                <div class="profile-hero__content">
+                    <div class="profile-avatar" data-profile-avatar aria-hidden="true"></div>
+                    <div>
+                        <h1 data-profile-name>اسم المستخدم</h1>
+                        <p class="profile-role" data-profile-role>عضو</p>
+                        <div class="profile-meta">
+                            <span>
+                                <span class="meta-label">البريد:</span>
+                                <a href="#" data-profile-email>—</a>
+                            </span>
+                            <span>
+                                <span class="meta-label">آخر تواجد:</span>
+                                <span data-profile-last-login>—</span>
+                            </span>
+                            <span>
+                                <span class="meta-label">الموقع:</span>
+                                <span data-profile-location>—</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <p class="profile-bio" data-profile-bio>أضف نبذة تعريفية قصيرة لتظهر هنا.</p>
+                <div class="profile-hero__actions">
+                    <button type="button" class="ghost" data-action="logout">تسجيل الخروج</button>
+                    <a class="ghost" href="index.html">العودة للرئيسية</a>
+                </div>
+            </section>
+
+            <section class="profile-grid">
+                <section class="profile-card span-2">
+                    <header class="profile-card__header">
+                        <div>
+                            <h2>تحديث الملف الشخصي</h2>
+                            <p>خصص بياناتك الأساسية وطرق التواصل.</p>
+                        </div>
+                    </header>
+                    <form class="profile-form" data-profile-form data-endpoint="/user/profile" data-method="POST" data-success="تم حفظ التعديلات" data-loading="يتم الحفظ..." data-reset-on-success="false">
+                        <div class="form-grid">
+                            <label>
+                                الاسم الكامل
+                                <input type="text" name="fullName" placeholder="اكتب اسمك" required>
+                            </label>
+                            <label>
+                                البريد الإلكتروني
+                                <input type="email" name="email" placeholder="name@example.com" required>
+                            </label>
+                            <label>
+                                الموقع الجغرافي
+                                <input type="text" name="location" placeholder="المدينة، الدولة">
+                            </label>
+                            <label class="span-2">
+                                نبذة قصيرة
+                                <textarea name="bio" rows="4" placeholder="كيف تود أن يعرفك الآخرون؟"></textarea>
+                            </label>
+                            <label class="span-2">
+                                الاهتمامات (سطر لكل اهتمام)
+                                <textarea name="interests" rows="3" placeholder="الفلسفة التطبيقية&#10;الدفاعيات&#10;التاريخ الإسلامي"></textarea>
+                            </label>
+                        </div>
+                        <fieldset class="profile-preferences">
+                            <legend>التفضيلات</legend>
+                            <label class="checkbox">
+                                <input type="checkbox" name="newsletter">
+                                الاشتراك في النشرة البريدية الأسبوعية
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="readingReminders">
+                                تذكيرات بأحدث المقالات والقراءات
+                            </label>
+                            <label>
+                                وتيرة الملخصات البريدية
+                                <select name="digestFrequency">
+                                    <option value="weekly">أسبوعيًا</option>
+                                    <option value="biweekly">كل أسبوعين</option>
+                                    <option value="monthly">شهريًا</option>
+                                </select>
+                            </label>
+                        </fieldset>
+                        <div class="form-actions">
+                            <button type="submit" class="primary" data-loading="يتم الحفظ...">حفظ التعديلات</button>
+                            <p class="form-status" hidden></p>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="profile-card">
+                    <header class="profile-card__header">
+                        <div>
+                            <h2>المفضلة</h2>
+                            <p>وصول سريع إلى المقالات التي اخترتها.</p>
+                        </div>
+                    </header>
+                    <div data-profile-favorites class="favorites-list">
+                        <p class="empty-state">لا توجد عناصر مفضلة حتى الآن.</p>
+                    </div>
+                </section>
+
+                <section class="profile-card">
+                    <header class="profile-card__header">
+                        <div>
+                            <h2>سجل القراءة</h2>
+                            <p>تابع آخر ما اطلعت عليه ونسبة التقدم.</p>
+                        </div>
+                    </header>
+                    <div data-reading-history class="history-list">
+                        <p class="empty-state">لم يتم تسجيل أي قراءة حديثًا.</p>
+                    </div>
+                </section>
+
+                <section class="profile-card">
+                    <header class="profile-card__header">
+                        <div>
+                            <h2>إجراءات سريعة</h2>
+                            <p>اختصارات للوصول إلى صفحات أساسية.</p>
+                        </div>
+                    </header>
+                    <div class="quick-actions">
+                        <a href="admin.html" class="quick-link" data-role="admin">لوحة التحكم</a>
+                        <a href="index.html#articles" class="quick-link">استكشاف المقالات</a>
+                        <button type="button" class="quick-link link-button" data-action="logout">تسجيل الخروج</button>
+                    </div>
+                </section>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div>
+                    <h3>منصة عقلاء</h3>
+                    <p>منصة عربية تعنى بتقديم محتوى نوعي يعزز التفكير المتزن ويجيب عن أبرز الشبهات.</p>
+                </div>
+                <div>
+                    <h4>تواصل معنا</h4>
+                    <a href="mailto:support@aqala.com">support@aqala.com</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 عقلاء. جميع الحقوق محفوظة.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/backend.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
+
+

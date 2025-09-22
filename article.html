@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفرسان - عرض المقال</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light article-page" data-article-id="welcome-article">
+    <header class="top-bar">
+        <div class="logo-area">
+            <img src="assets/images/logo.svg" alt="شعار الفرسان" class="logo">
+            <span class="site-title">الفرسان</span>
+        </div>
+        <nav class="main-nav">
+            <a href="series.html">السلاسل</a>
+            <a href="index.html#articles" data-filter="doubts">دفع الشبهات</a>
+            <a href="index.html#articles" data-filter="prophethood">إثبات النبوة</a>
+            <a href="index.html#articles" data-filter="logic">المنطق</a>
+            <a href="index.html#articles" data-filter="theology">بحوث عقدية</a>
+            <a href="index.html#articles" data-filter="philosophy">قضايا فلسفية</a>
+            <a href="index.html#articles" data-filter="misc">أقسام متنوعة</a>
+        </nav>
+        <div class="actions">
+            <button class="theme-toggle" aria-label="تبديل السمة" id="articleThemeToggle">
+                <span class="icon-sun"></span>
+                <span class="icon-moon"></span>
+            </button>
+            <button class="auth-btn" data-action="open-dashboard">دخول / تسجيل</button>
+        </div>
+    </header>
+
+    <main class="article-content-wrapper">
+        <article class="article-detail">
+            <header class="article-header">
+                <span class="category-label">المنطق</span>
+                <h1>عنوان المقال</h1>
+                <div class="article-info">
+                    <span>الكاتب</span>
+                    <span>التاريخ</span>
+                    <span>عدد التعليقات</span>
+                </div>
+                <div class="share-buttons">
+                    <button aria-label="شارك على تويتر">تويتر</button>
+                    <button aria-label="شارك على فيسبوك">فيسبوك</button>
+                    <button aria-label="انسخ الرابط" data-copy-link>نسخ الرابط</button>
+                    <button type="button" class="icon-btn favorite-toggle" data-role="article-favorite" data-action="toggle-favorite" data-article="" aria-pressed="false">
+                        <span class="icon-heart" aria-hidden="true">&#9825;</span>
+                        <span class="sr-only" data-favorite-label>إضافة إلى المفضلة</span>
+                    </button>
+                </div>
+                    </button>
+            </header>
+            <figure class="article-hero">
+                <img src="assets/images/article-1.svg" alt="صورة المقال" loading="lazy">
+                <figcaption>مشهد تعبيري عن التفكير العميق وصناعة البرهان.</figcaption>
+            </figure>
+            <div class="article-body">
+                <p>سيتم تحميل المحتوى عند توفر المقال.</p>
+            </div>
+        </article>
+
+        <aside class="article-sidebar">
+            <section class="about-author">
+                <h3>عن الكاتب</h3>
+                <p>يتم عرض نبذة مختصرة عن الكاتب بناءً على المقال المنشور.</p>
+            </section>
+            <section class="article-poll">
+                <h3>رأيك يهمنا</h3>
+                <p>كيف تقيم محتوى هذه المقالة؟</p>
+                <form class="rating-form" data-endpoint="/articles/rational-discourse/rating" data-method="POST" data-success="✓ شكراً لتقييمك" data-loading="جارٍ الإرسال..." data-reset-on-success="false">
+                    <label><input type="radio" name="rating" value="excellent"> ممتاز</label>
+                    <label><input type="radio" name="rating" value="good"> جيد</label>
+                    <label><input type="radio" name="rating" value="needs-detail"> يحتاج مزيداً من التفصيل</label>
+                    <button type="submit" data-loading="جارٍ الإرسال...">إرسال</button>
+                    <p class="form-status" hidden></p>
+                </form>
+            </section>
+            <section class="related-tags">
+                <h3>وسوم مرتبطة</h3>
+                <div class="tags-cloud">
+                    <a href="index.html#articles" class="tag-badge" data-tag="العقلانية">العقلانية</a>
+                    <a href="index.html#articles" class="tag-badge" data-tag="الحوار">الحوار</a>
+                    <a href="index.html#articles" class="tag-badge" data-tag="المنطق">المنطق</a>
+                    <a href="index.html#articles" class="tag-badge" data-tag="الشبهات">الشبهات</a>
+                </div>
+            </section>
+        </aside>
+    </main>
+
+    <section class="read-also">
+        <h2>اقرأ أيضاً</h2>
+        <div class="article-grid" id="relatedArticles">
+            <article class="article-card">
+                <img src="assets/images/article-4.svg" alt="أدوات تحليل الخطاب">
+                <div class="article-content">
+                    <h3>أدوات تحليل الخطاب العلمي</h3>
+                    <a href="article.html?slug=logic-philosophy-overview" class="read-link">اقرأ الآن</a>
+                </div>
+            </article>
+            <article class="article-card">
+                <img src="assets/images/article-5.svg" alt="المغالطات الشائعة">
+                <div class="article-content">
+                    <h3>المغالطات الشائعة في النقد الديني</h3>
+                    <a href="article.html?slug=divine-justice-and-reason" class="read-link">اقرأ الآن</a>
+                </div>
+            </article>
+            <article class="article-card">
+                <img src="assets/images/article-6.svg" alt="العقل الجدلي">
+                <div class="article-content">
+                    <h3>إعادة بناء العقل الجدلي</h3>
+                    <a href="article.html?slug=epistemology-in-islamic-thought" class="read-link">اقرأ الآن</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>© 2025 الفرسان. جميع الحقوق محفوظة.</p>
+            <div class="share-buttons">
+                <button aria-label="شارك على تويتر">تويتر</button>
+                <button aria-label="شارك على فيسبوك">فيسبوك</button>
+                <button aria-label="شارك على واتساب">واتساب</button>
+            </div>
+        </div>
+    </footer>
+
+    <div class="popup" id="authPopup" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>مرحباً بك</h3>
+            <p>سجّل دخولك لمتابعة المقالات والتعليق.</p>
+            <form class="auth-form" data-endpoint="/auth/login" data-method="POST" data-success="✓ تم تسجيل الدخول" data-loading="جارٍ تسجيل الدخول..." data-reset-on-success="false" data-close-on-success="true">
+                <label>
+                    البريد الإلكتروني
+                    <input type="email" name="email" autocomplete="email" required>
+                </label>
+                <label>
+                    كلمة المرور
+                    <input type="password" name="password" autocomplete="current-password" required>
+                </label>
+                <button type="submit" data-loading="جارٍ تسجيل الدخول...">دخول</button>
+                <button type="button" class="secondary" data-action="open-dashboard">لوحة التحكم</button>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/backend.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
+
+
+

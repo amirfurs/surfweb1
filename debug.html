@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - الفرسان</title>
+</head>
+<body class="theme-light home-page">
+    <h1>Debug Page</h1>
+    
+    <div id="debug-output"></div>
+    <div id="articleGrid"></div>
+    
+    <script src="assets/js/backend.js"></script>
+    <script>
+        // Debug script to test backend functionality
+        setTimeout(() => {
+            const debugOutput = document.getElementById('debug-output');
+            let output = '<h2>Debug Information:</h2>';
+            
+            // Check if mockBackend exists
+            if (window.mockBackend) {
+                output += '<p>✅ mockBackend exists</p>';
+                
+                // Get posts
+                const posts = window.mockBackend.getPosts({});
+                output += `<p>✅ Posts count: ${posts.length}</p>`;
+                
+                if (posts.length > 0) {
+                    output += '<h3>Sample Posts:</h3><ul>';
+                    posts.slice(0, 3).forEach(post => {
+                        output += `<li><strong>${post.title}</strong> - ${post.author} (${post.category})</li>`;
+                    });
+                    output += '</ul>';
+                }
+            } else {
+                output += '<p>❌ mockBackend does not exist</p>';
+            }
+            
+            debugOutput.innerHTML = output;
+        }, 1000);
+    </script>
+</body>
+</html>

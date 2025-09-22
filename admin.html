@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - الفرسان</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light admin-page" data-api-base="/api">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <a href="index.html" class="admin-logo">
+                    <img src="assets/images/logo.svg" alt="شعار الفرسان">
+                    <span>الفرسان | إدارة المحتوى</span>
+                </a>
+            </div>
+            <nav>
+                <a href="#dashboard" class="active">لوحة المتابعة</a>
+                <a href="#articles-panel">المقالات</a>
+                <a href="#polls-panel">استطلاعات الرأي</a>
+                <a href="#users-panel">إدارة المستخدمين</a>
+                <button class="theme-toggle" aria-label="تبديل السمة" id="adminThemeToggle">
+                    <span class="icon-sun"></span>
+                    <span class="icon-moon"></span>
+                </button>
+            </nav>
+        </aside>
+
+        <main class="admin-main" id="dashboard">
+            <section class="admin-auth-gate" id="adminAuthGate" aria-hidden="true">
+                <div class="admin-auth-card">
+                    <div class="admin-auth-copy">
+                        <h1>مرحباً بفريق الفرسان</h1>
+                        <p>سجّل دخولك لإدارة المقالات، متابعة الأداء، وإطلاق الاستطلاعات الجديدة. إذا لم يصلك حساب بعد، تواصل مع مدير المنصة.</p>
+                        <ul>
+                            <li>إدارة شاملة للمحتوى والوسوم</li>
+                            <li>متابعة الإحصاءات والتحليلات</li>
+                            <li>التحكم في الأدوار والمساهمين</li>
+                        </ul>
+                    </div>
+                    <form class="admin-auth-form" data-endpoint="/auth/login" data-method="POST" data-success="✓ تم تسجيل الدخول" data-loading="جارٍ التحقق..." data-reset-on-success="false">
+                        <h2>تسجيل الدخول لطاقم التحرير</h2>
+                        <label>
+                            البريد الإلكتروني المهني
+                            <input type="email" name="email" autocomplete="email" placeholder="editor@aqala.com" required>
+                        </label>
+                        <label>
+                            كلمة المرور
+                            <input type="password" name="password" autocomplete="current-password" placeholder="••••••••" required>
+                        </label>
+                        <button type="submit" class="primary" data-loading="جارٍ التحقق...">دخول لوحة التحكم</button>
+                        <p class="form-status" hidden></p>
+                        <p class="admin-help">تعذّر تسجيل الدخول؟ راسل <a href="mailto:support@aqala.com">support@aqala.com</a></p>
+                    </form>
+                </div>
+            </section>
+
+            <header class="admin-header">
+                <div>
+                    <h1>لوحة التحكم</h1>
+                    <p>تابع أداء المنصة وسير العمل التحريري من مكان واحد.</p>
+                </div>
+                <div class="admin-user">
+                    <span>يرجى تسجيل الدخول</span>
+                    <button class="auth-btn" data-action="open-dashboard">تسجيل الدخول</button>
+                    <button class="ghost" data-action="logout" hidden>تسجيل خروج</button>
+                </div>
+            </header>
+
+            <section class="metrics">
+                <div class="metric-card">
+                    <span class="metric-title">مقالات منشورة</span>
+                    <strong data-metric="articles-count">0</strong>
+                    <span class="metric-trend" data-metric="articles-trend">جارٍ التحميل...</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">مشتركو النشرة</span>
+                    <strong data-metric="newsletter-count">0</strong>
+                    <span class="metric-trend" data-metric="newsletter-trend">جارٍ التحميل...</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">أعضاء مسجلون</span>
+                    <strong data-metric="users-count">0</strong>
+                    <span class="metric-trend" data-metric="users-trend">جارٍ التحميل...</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">أصوات الاستطلاعات</span>
+                    <strong data-metric="poll-votes-count">0</strong>
+                    <span class="metric-trend" data-metric="poll-votes-trend">جارٍ التحميل...</span>
+                </div>
+            </section>
+
+            <section class="admin-panels">
+                <div class="panel" id="articles-panel">
+                    <header>
+                        <h2>إدارة المقالات</h2>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="primary" data-modal-target="articleModal" data-requires-auth="true">+ إضافة مقال</button>
+                            <button class="secondary" id="cleanupArticlesBtn" data-requires-auth="true" title="حذف المقالات غير الصالحة">🗑️ تنظيف</button>
+                        </div>
+                    </header>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>العنوان</th>
+                                <th>التصنيف</th>
+                                <th>المؤلف</th>
+                                <th>التاريخ</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminArticlesTable">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 20px;">جارٍ تحميل المقالات...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel" id="series-panel">
+                    <header>
+                        <h2>إدارة السلاسل</h2>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="primary" data-modal-target="seriesModal" data-requires-auth="true">+ إضافة سلسلة</button>
+                            <button class="secondary" data-modal-target="episodeModal" data-requires-auth="true">+ إضافة حلقة</button>
+                        </div>
+                    </header>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>العنوان</th>
+                                <th>الحالة</th>
+                                <th>عدد الحلقات</th>
+                                <th>المؤلف</th>
+                                <th>التاريخ</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminSeriesTable">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 20px;">جارٍ تحميل السلاسل...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel" id="polls-panel">
+                    <header>
+                        <h2>إدارة الاستطلاعات</h2>
+                        <button class="secondary" data-modal-target="pollModal" data-requires-auth="true">+ استطلاع جديد</button>
+                    </header>
+                    <div class="poll-summary">
+                        <h3>آخر استطلاع منشور</h3>
+                        <div class="results-grid">
+                            <div class="result"><span>مضيئة</span><strong>56%</strong></div>
+                            <div class="result"><span>داكنة</span><strong>31%</strong></div>
+                            <div class="result"><span>دافئة</span><strong>13%</strong></div>
+                        </div>
+                        <button class="ghost" data-action="open-dashboard">عرض التفاصيل</button>
+                    </div>
+                </div>
+
+                <div class="panel" id="users-panel">
+                    <header>
+                        <h2>أدوار المستخدمين</h2>
+                        <button class="secondary" data-modal-target="userModal" data-requires-auth="true">+ مستخدم جديد</button>
+                    </header>
+                    <ul class="roles-list">
+                        <li>
+                            <span class="role-name">مدير</span>
+                            <p>صلاحيات كاملة على المحتوى والإعدادات.</p>
+                        </li>
+                        <li>
+                            <span class="role-name">محرر</span>
+                            <p>إضافة وتحرير المقالات وإدارة التعليقات.</p>
+                        </li>
+                        <li>
+                            <span class="role-name">مساهم</span>
+                            <p>إنشاء مسودات ورفع مواد بحاجة إلى مراجعة.</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="popup" id="articleModal" role="dialog" aria-hidden="true">
+        <div class="popup-content article-modal">
+            <div class="modal-header">
+                <h3 id="articleModalTitle">إضافة مقال جديد</h3>
+                <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            </div>
+            
+            <form class="article-form" id="articleForm" data-endpoint="/admin/articles" data-method="POST" data-success="✓ تم حفظ المقال" data-loading="جارٍ حفظ المقال...">
+                <input type="hidden" name="articleId" id="articleId">
+                <input type="hidden" name="image_url" id="articleImageUrl">
+                
+                <div class="form-section">
+                    <h4>معلومات المقال</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="articleTitle">عنوان المقال *</label>
+                            <input type="text" name="title" id="articleTitle" required placeholder="أدخل عنوان المقال">
+                        </div>
+                        <div class="form-group">
+                            <label for="articleCategory">التصنيف *</label>
+                            <select name="category" id="articleCategory" required>
+                                <option value="">اختر التصنيف</option>
+                                <option value="logic">المنطق</option>
+                                <option value="doubts">دفع الشبهات</option>
+                                <option value="prophethood">إثبات النبوة</option>
+                                <option value="theology">بحوث عقدية</option>
+                                <option value="philosophy">قضايا فلسفية</option>
+                                <option value="misc">أقسام متنوعة</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="articleTags">الوسوم</label>
+                        <input type="text" name="tags" id="articleTags" placeholder="مثال: منطق، فلسفة، عقيدة (مفصولة بفاصلة)">
+                        <small>أدخل الوسوم مفصولة بفاصلة لتسهيل البحث والتصنيف</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>صورة المقال</h4>
+                    <div class="image-upload-area" id="imageUploadArea">
+                        <div class="upload-placeholder" id="uploadPlaceholder">
+                            <div class="upload-icon">📷</div>
+                            <p>اسحب الصورة هنا أو انقر للاختيار</p>
+                            <small>PNG, JPG, GIF حتى 16MB</small>
+                            <input type="file" id="articleImageFile" accept="image/*" hidden>
+                        </div>
+                        <div class="image-preview" id="imagePreview" style="display: none;">
+                            <img id="previewImg" alt="معاينة الصورة">
+                            <div class="image-actions">
+                                <button type="button" id="changeImageBtn" class="secondary small">تغيير الصورة</button>
+                                <button type="button" id="removeImageBtn" class="ghost small">إزالة</button>
+                            </div>
+                            <div id="uploadProgress" class="upload-progress" style="display: none;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <span class="progress-text">جارٍ الرفع...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>محتوى المقال *</h4>
+                    <div class="form-group">
+                        <div class="rich-editor">
+                            <div class="editor-toolbar">
+                                <div class="toolbar-group">
+                                    <button type="button" class="toolbar-btn" data-command="bold" title="نص عريض">
+                                        <strong>ع</strong>
+                                    </button>
+                                    <button type="button" class="toolbar-btn" data-command="italic" title="نص مائل">
+                                        <em>م</em>
+                                    </button>
+                                    <button type="button" class="toolbar-btn" data-command="underline" title="نص مسطر">
+                                        <u>س</u>
+                                    </button>
+                                </div>
+                                <div class="toolbar-group">
+                                    <button type="button" class="toolbar-btn" data-command="justifyRight" title="محاذاة يمين">
+                                        ⇤
+                                    </button>
+                                    <button type="button" class="toolbar-btn" data-command="justifyCenter" title="محاذاة وسط">
+                                        ↔
+                                    </button>
+                                    <button type="button" class="toolbar-btn" data-command="justifyLeft" title="محاذاة يسار">
+                                        ⇥
+                                    </button>
+                                </div>
+                                <div class="toolbar-group">
+                                    <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="قائمة نقطية">
+                                        •
+                                    </button>
+                                    <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="قائمة مرقمة">
+                                        1.
+                                    </button>
+                                </div>
+                                <div class="toolbar-group">
+                                    <button type="button" class="toolbar-btn" data-command="formatBlock" data-value="h2" title="عنوان فرعي">
+                                        ع2
+                                    </button>
+                                    <button type="button" class="toolbar-btn" data-command="formatBlock" data-value="h3" title="عنوان فرعي صغير">
+                                        ع3
+                                    </button>
+                                    <button type="button" class="toolbar-btn" data-command="formatBlock" data-value="blockquote" title="اقتباس">
+                                        "
+                                    </button>
+                                </div>
+                                <div class="toolbar-group">
+                                    <button type="button" class="toolbar-btn" id="insertImageBtn" title="إدراج صورة">
+                                        🖼️
+                                    </button>
+                                    <button type="button" class="toolbar-btn" id="insertQuranBtn" title="إدراج آية قرآنية">
+                                        📖
+                                    </button>
+                                    <button type="button" class="toolbar-btn" data-command="createLink" title="إدراج رابط">
+                                        🔗
+                                    </button>
+                                </div>
+                                <div class="toolbar-group">
+                                    <button type="button" class="toolbar-btn" data-command="removeFormat" title="إزالة التنسيق">
+                                        ✗
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content" id="articleBody" contenteditable="true" data-placeholder="ابدأ كتابة محتوى المقال هنا..."></div>
+                            <textarea name="body" id="articleBodyHidden" style="display: none;" required></textarea>
+                        </div>
+                        <small>استخدم أدوات التحرير لتنسيق النص وإدراج الصور والآيات القرآنية</small>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary" id="articleSubmitBtn" data-loading="جارٍ حفظ المقال...">
+                        <span class="btn-icon">✓</span>
+                        حفظ ونشر المقال
+                    </button>
+                    <button type="button" class="secondary" data-popup-close>
+                        <span class="btn-icon">×</span>
+                        إلغاء
+                    </button>
+                </div>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quran Verse Modal -->
+    <div class="popup" id="quranModal" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <div class="modal-header">
+                <h3>إدراج آية قرآنية</h3>
+                <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            </div>
+            <form class="quran-form" id="quranForm">
+                <div class="form-group">
+                    <label for="surahSelect">السورة</label>
+                    <select id="surahSelect" required>
+                        <option value="">اختر السورة</option>
+                        <option value="1">الفاتحة</option>
+                        <option value="2">البقرة</option>
+                        <option value="3">آل عمران</option>
+                        <option value="4">النساء</option>
+                        <option value="5">المائدة</option>
+                        <option value="6">الأنعام</option>
+                        <option value="7">الأعراف</option>
+                        <option value="18">الكهف</option>
+                        <option value="36">يس</option>
+                        <option value="67">الملك</option>
+                        <option value="112">الإخلاص</option>
+                        <option value="113">الفلق</option>
+                        <option value="114">الناس</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ayahNumber">رقم الآية</label>
+                    <input type="number" id="ayahNumber" min="1" placeholder="مثال: 255" required>
+                </div>
+                <div class="form-group">
+                    <label for="ayahText">نص الآية</label>
+                    <textarea id="ayahText" placeholder="أدخل نص الآية الكريمة" required></textarea>
+                    <small>يمكنك نسخ النص من مصحف إلكتروني</small>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary">إدراج الآية</button>
+                    <button type="button" class="secondary" data-popup-close>إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Image Insert Modal -->
+    <div class="popup" id="imageInsertModal" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <div class="modal-header">
+                <h3>إدراج صورة في النص</h3>
+                <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            </div>
+            <form class="image-insert-form" id="imageInsertForm">
+                <div class="form-group">
+                    <label>رفع صورة جديدة</label>
+                    <div class="image-upload-area small" id="inlineImageUploadArea">
+                        <div class="upload-placeholder" id="inlineUploadPlaceholder">
+                            <div class="upload-icon">📷</div>
+                            <p>اختر صورة للإدراج</p>
+                            <input type="file" id="inlineImageFile" accept="image/*" hidden>
+                        </div>
+                        <div class="image-preview" id="inlineImagePreview" style="display: none;">
+                            <img id="inlinePreviewImg" alt="معاينة الصورة">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="imageAlt">وصف الصورة</label>
+                    <input type="text" id="imageAlt" placeholder="وصف مختصر للصورة">
+                    <small>مهم لإمكانية الوصول وتحسين محركات البحث</small>
+                </div>
+                <div class="form-group">
+                    <label for="imageAlign">محاذاة الصورة</label>
+                    <select id="imageAlign">
+                        <option value="center">وسط</option>
+                        <option value="right">يمين</option>
+                        <option value="left">يسار</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary">إدراج الصورة</button>
+                    <button type="button" class="secondary" data-popup-close>إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup" id="pollModal" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>إنشاء استطلاع</h3>
+            <form class="admin-form" data-endpoint="/admin/polls" data-method="POST" data-success="✓ تم إنشاء الاستطلاع" data-loading="جارٍ إنشاء الاستطلاع...">
+                <label>سؤال الاستطلاع<input type="text" name="question" required></label>
+                <label>الخيارات<textarea name="options" placeholder="أدخل كل خيار في سطر منفصل" required></textarea></label>
+                <div class="form-actions">
+                    <button type="submit" class="primary" data-loading="جارٍ إنشاء الاستطلاع...">نشر</button>
+                    <button type="button" class="ghost" data-popup-close>إلغاء</button>
+                </div>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup" id="userModal" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>إضافة مستخدم</h3>
+            <form class="admin-form" data-endpoint="/admin/users" data-method="POST" data-success="✓ تم إضافة المستخدم" data-loading="جارٍ إضافة المستخدم...">
+                <label>الاسم الكامل<input type="text" name="fullName" required></label>
+                <label>البريد الإلكتروني<input type="email" name="email" required></label>
+                <label>الدور<select name="role" required>
+                    <option value="admin">مدير</option>
+                    <option value="editor">محرر</option>
+                    <option value="contributor">مساهم</option>
+                </select></label>
+                <div class="form-actions">
+                    <button type="submit" class="primary" data-loading="جارٍ إضافة المستخدم...">حفظ</button>
+                    <button type="button" class="ghost" data-popup-close>إلغاء</button>
+                </div>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Series Modal -->
+    <div class="popup" id="seriesModal" role="dialog" aria-hidden="true">
+        <div class="popup-content" style="max-width: 600px;">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>إضافة سلسلة جديدة</h3>
+            <form class="admin-form" data-endpoint="/admin/series" data-method="POST" data-success="✓ تم إنشاء السلسلة" data-loading="جارٍ الإنشاء...">
+                <label>
+                    عنوان السلسلة
+                    <input type="text" name="title" required placeholder="مثال: سلسلة أصول الفقه">
+                </label>
+                <label>
+                    الرابط المختصر (slug)
+                    <input type="text" name="slug" required placeholder="مثال: usul-al-fiqh">
+                    <small>يُستخدم في الرابط، يجب أن يكون باللغة الإنجليزية وبدون مسافات</small>
+                </label>
+                <label>
+                    وصف السلسلة
+                    <textarea name="description" required rows="4" placeholder="وصف مختصر عن محتوى السلسلة وأهدافها..."></textarea>
+                </label>
+                <label>
+                    رابط الصورة
+                    <input type="url" name="image_url" placeholder="https://example.com/image.jpg">
+                </label>
+                <label>
+                    حالة السلسلة
+                    <select name="status" required>
+                        <option value="active">نشطة</option>
+                        <option value="completed">مكتملة</option>
+                        <option value="paused">متوقفة مؤقتاً</option>
+                    </select>
+                </label>
+                <button type="submit" class="primary" data-loading="جارٍ الإنشاء...">إنشاء السلسلة</button>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Episode Modal -->
+    <div class="popup" id="episodeModal" role="dialog" aria-hidden="true">
+        <div class="popup-content" style="max-width: 700px;">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>إضافة حلقة جديدة</h3>
+            <form class="admin-form" data-endpoint="/admin/episodes" data-method="POST" data-success="✓ تم إنشاء الحلقة" data-loading="جارٍ الإنشاء...">
+                <label>
+                    السلسلة
+                    <select name="series_id" id="episodeSeriesSelect" required>
+                        <option value="">اختر السلسلة...</option>
+                    </select>
+                </label>
+                <label>
+                    رقم الحلقة
+                    <input type="number" name="episode_number" required min="1" placeholder="1">
+                </label>
+                <label>
+                    عنوان الحلقة
+                    <input type="text" name="title" required placeholder="مثال: مقدمة في علم الأصول">
+                </label>
+                <label>
+                    الرابط المختصر (slug)
+                    <input type="text" name="slug" required placeholder="مثال: introduction-to-usul">
+                    <small>يُستخدم في الرابط، يجب أن يكون باللغة الإنجليزية وبدون مسافات</small>
+                </label>
+                <label>
+                    محتوى الحلقة
+                    <textarea name="content" required rows="8" placeholder="محتوى الحلقة بالتفصيل..."></textarea>
+                </label>
+                <label>
+                    رابط الصورة
+                    <input type="url" name="image_url" placeholder="https://example.com/episode-image.jpg">
+                </label>
+                <label>
+                    مدة الحلقة (بالدقائق)
+                    <input type="number" name="duration_minutes" min="1" placeholder="45">
+                </label>
+                <label>
+                    حالة الحلقة
+                    <select name="status" required>
+                        <option value="published">منشورة</option>
+                        <option value="draft">مسودة</option>
+                    </select>
+                </label>
+                <button type="submit" class="primary" data-loading="جارٍ الإنشاء...">إنشاء الحلقة</button>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/backend.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>

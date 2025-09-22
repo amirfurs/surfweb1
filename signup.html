@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - الفرسان</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light auth-page signup-page">
+    <div class="auth-wrapper">
+        <aside class="auth-brand">
+            <a href="index.html" class="auth-logo">
+                <img src="assets/images/logo.svg" alt="شعار الفرسان">
+                <span>الفرسان</span>
+            </a>
+            <h1>انضم إلى مجتمع الفرسان</h1>
+            <p>أنشئ حسابك لتتابع السلاسل، تحفظ المقالات، وتنضم إلى النقاشات الفكرية.</p>
+            <ul class="auth-benefits">
+                <li>إشعارات أسبوعية بأهم المقالات</li>
+                <li>إمكانية التعليق والتقييم</li>
+                <li>وصول مبكر إلى السلاسل الجديدة</li>
+            </ul>
+        </aside>
+        <main class="auth-card" role="main">
+            <h2>إنشاء حساب جديد</h2>
+            <form class="auth-form" data-endpoint="/auth/register" data-method="POST" data-success="✓ تم إنشاء الحساب" data-loading="جارٍ إنشاء الحساب..." data-reset-on-success="false">
+                <label>
+                    الاسم الكامل
+                    <input type="text" name="fullName" autocomplete="name" placeholder="الاسم الثلاثي" required>
+                </label>
+                <label>
+                    البريد الإلكتروني
+                    <input type="email" name="email" autocomplete="email" placeholder="name@example.com" required>
+                </label>
+                <label>
+                    كلمة المرور
+                    <input type="password" name="password" autocomplete="new-password" placeholder="كلمة مرور قوية" minlength="6" required>
+                </label>
+                <label>
+                    تأكيد كلمة المرور
+                    <input type="password" name="confirmPassword" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور" minlength="6" required>
+                </label>
+                <label class="remember">
+                    <input type="checkbox" name="acceptTerms" required>
+                    أوافق على <a href="#">شروط الاستخدام</a> و <a href="#">سياسة الخصوصية</a>
+                </label>
+                <button type="submit" class="primary" data-loading="جارٍ إنشاء الحساب...">إنشاء الحساب</button>
+                <p class="form-status" hidden></p>
+            </form>
+            <footer class="auth-footer">
+                <p>لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a></p>
+                <a href="index.html" class="muted-link">العودة إلى الصفحة الرئيسية</a>
+            </footer>
+        </main>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/backend.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
